@@ -47,23 +47,3 @@ WITH (
     ENCODING 'UTF8',
     NULL 'null'
 );
-
--- Check if row count matches with the given raw dataset
-SELECT COUNT(*)
-FROM public.rides;
-
--- Check for duplicates
-SELECT COUNT(DISTINCT booking_id)
-FROM public.rides;
-
--- % of successful bookings
--- List all booking status messages
-SELECT DISTINCT booking_status
-FROM public.rides;
--- Find % of successful bookings
-SELECT
-    ROUND((
-        COUNT(*) FILTER (WHERE booking_status = 'Success') * 100.0 /
-        COUNT(*)
-    ), 2) AS successful_booking_percentage
-FROM public.rides;
