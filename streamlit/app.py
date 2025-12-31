@@ -14,7 +14,7 @@ st.title("Ola Ride Insights")
 query = """
 SELECT vehicle_type,
        COUNT(*) AS rides,
-       SUM(booking_value)::money AS revenue
+       TO_CHAR(SUM(booking_value), 'FM₹99,99,99,999.00') AS revenue
 FROM rides
 WHERE is_incomplete_ride=TRUE
 GROUP BY vehicle_type
