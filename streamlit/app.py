@@ -1,32 +1,23 @@
 import streamlit as st
-import pandas as pd
-import psycopg2
+from db.connection import get_engine
+from queries.metrics import total_kpis, rides_by_vehicle
+from components.kpis import show_kpis
+from components.charts import vehicle_revenue_chart
+from components.filters import sidebar_filters
 
-conn = psycopg2.connect(
-    host="10.0.0.2",
-    database="ola",
-    user="root",
-    password="m@$t3rm!Nd"
+st.set_page_config(
+    page_title="Ola Ride Insights",
+    layout="wide"
 )
 
-st.title("Ola Ride Insights")
+st.title("Ola Ride Insights Dashboard")
 
-query = """
-SELECT vehicle_type,
-       COUNT(*) AS rides,
-       TO_CHAR(SUM(booking_value), 'FM₹99,99,99,999.00') AS revenue
-FROM rides
-WHERE is_incomplete_ride=TRUE
-GROUP BY vehicle_type
-ORDER BY revenue DESC
-"""
-df = pd.read_sql(query, conn)
+engine = get_engine()
+filters = sidebar_filters()
 
-st.dataframe(df)
-st.bar_chart(df.set_index("vehicle_type")["revenue"])
+kpi_df = total_kpis(engine)
+vehicle_df = rides_by_vehicle(engine)
 
-st.subheader("Power BI Dashboard")
-st.components.v1.iframe(
-    "POWER_BI_EMBED_URL",
-    height=600
-)
+show_kpis(kpi_df)
+st.divider()
+vehicle_revenue_chart(vehicle_df)
