@@ -1,6 +1,7 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
+from components.header import render_header
 
 from db.connection import get_engine
 from queries.demand import (
@@ -10,6 +11,7 @@ from queries.demand import (
 )
 
 st.set_page_config(layout="wide")
+render_header()
 st.title("Demand Analysis")
 
 engine = get_engine()

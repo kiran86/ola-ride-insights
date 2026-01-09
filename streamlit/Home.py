@@ -1,11 +1,10 @@
 import streamlit as st
+from components.header import render_header
 
 st.set_page_config(
-    page_title="Ola Ride Insights",
     layout="wide"
 )
-
-st.title("🚖 Ola Ride Insights")
+render_header()
 st.markdown(
     """
     Welcome to the **Ola Ride Insights** analytics dashboard.

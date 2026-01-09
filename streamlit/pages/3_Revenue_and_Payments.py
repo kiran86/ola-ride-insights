@@ -1,5 +1,6 @@
 import streamlit as st
 import plotly.express as px
+from components.header import render_header
 
 from db.connection import get_engine
 from queries.revenue import (
@@ -9,6 +10,7 @@ from queries.revenue import (
 )
 
 st.set_page_config(layout="wide")
+render_header()
 st.title("Revenue & Payments")
 
 engine = get_engine()

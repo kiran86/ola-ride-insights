@@ -1,6 +1,6 @@
 import streamlit as st
 import plotly.express as px
-
+from components.header import render_header
 from db.connection import get_engine
 from queries.cancellations import (
     cancellation_kpis,
@@ -10,8 +10,8 @@ from queries.cancellations import (
 )
 
 st.set_page_config(layout="wide")
+render_header()
 st.title("Cancellations Analysis")
-
 engine = get_engine()
 
 # ---------- DATA ----------

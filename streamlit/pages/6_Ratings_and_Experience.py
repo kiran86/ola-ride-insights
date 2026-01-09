@@ -1,6 +1,6 @@
 import streamlit as st
 import plotly.express as px
-
+from components.header import render_header
 from db.connection import get_engine
 from queries.ratings import (
     rating_kpis,
@@ -9,8 +9,8 @@ from queries.ratings import (
 )
 
 st.set_page_config(layout="wide")
+render_header()
 st.title("Ratings & Experience")
-
 engine = get_engine()
 
 # ---------- DATA ----------

@@ -1,12 +1,12 @@
 import streamlit as st
 import plotly.express as px
-
+from components.header import render_header
 from db.connection import get_engine
 from queries.vehicle import vehicle_kpis
 
 st.set_page_config(layout="wide")
 st.title("Vehicle Performance")
-
+render_header()
 engine = get_engine()
 df = vehicle_kpis(engine)
 
